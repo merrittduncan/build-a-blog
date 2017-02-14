@@ -54,7 +54,42 @@ class Blog(Handler):
 
         self.render("recent.html", posts=recentPosts)
 
+class NewPost(Handler):
+
+    def get(self):
+        self.render("newpost.html")
+
+    def post(self):
+        title = self.request.get("title")
+        content = self.request.get("content")
+
+        if title and content:
+            a = BlogPosts(title=title, content=content)
+            a.put()
+
+            akey = str(a.key().id())
+
+            self.redirect("/blog/" + akey)
+
+        else:
+            error = "try again"
+            self.render_front(title,content,error)
+
+class ViewPostHandler(webapp2.RequestHandler):
+    def get(self, id):
+        post = BlogPosts.get_by_id(int(id))
+
+        if not post:
+            self.response.write(id)
+
+        t = jinja_env.get_template("post.html")
+        post = t.render(post=post)
+
+        self.response.write(post)
+
 app = webapp2.WSGIApplication([
-    ('/', Index),
-    ('/blog', Blog)
+    ('/', Blog),
+    ('/blog', Blog),
+    ('/newpost', NewPost),
+    webapp2.Route('/blog/<id:\d+>', ViewPostHandler)
 ], debug=True)

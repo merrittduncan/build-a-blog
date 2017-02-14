@@ -17,13 +17,20 @@
             color:blue;
             font-size:20px;
         }
+        .post{
+            margin:20px 200px 10px 10px;
+            border-style: solid;
+            border-width: 1px;
+            padding: 25px;
+        }
 
         </style>
     </head>
     <body>
         <h1>
-            Build-A-Blog
+            <a href="/blog">Build-A-Blog</a>
         </h1>
+        <p>Please click <a href="/newpost">here</a> to add a new post.</p>
 
         {% block content %}
         {% endblock %}
