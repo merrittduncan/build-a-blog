@@ -87,6 +87,12 @@ class ViewPostHandler(webapp2.RequestHandler):
 
         self.response.write(post)
 
+def get_posts(limit, offset):
+    recentPosts = db.GqlQuery("SELECT * from BlogPosts ORDER BY created DESC LIMIT" + limit + "OFFSET" + offset)
+
+    self.render("recent.html", posts=recentPosts)
+
+
 app = webapp2.WSGIApplication([
     ('/', Blog),
     ('/blog', Blog),
