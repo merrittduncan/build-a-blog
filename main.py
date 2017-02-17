@@ -30,28 +30,6 @@ class Index(Handler):
 
         self.render("recent.html", posts=recentPosts)
 
-    # def render_front(self, title="", content="", error=""):
-    #     posts = db.GqlQuery("SELECT * from BlogPosts ORDER BY created DESC")
-    #
-    #     self.render("front.html", title=title, content=content, error=error, posts=posts)
-    #
-    # def get(self):
-    #     self.render_front()
-    #
-    # def post(self):
-    #     title = self.request.get("title")
-    #     content = self.request.get("content")
-    #
-    #     if title and content:
-    #         a = BlogPosts(title=title, content=content)
-    #         a.put()
-    #
-    #         self.redirect("/")
-    #
-    #     else:
-    #         error = "try again"
-    #         self.render_front(title,content,error)
-
 class Blog(Handler):
 
     def get(self):
@@ -60,11 +38,6 @@ class Blog(Handler):
         self.render("recent.html", posts=recentPosts)
 
 class NewPost(Handler):
-    def render_front(self, title="", content="", titleerror="",contenterror="", error=""):
-        posts = db.GqlQuery("SELECT * from BlogPosts ORDER BY created DESC")
-
-        self.render("front.html", title=title, content=content, titleerror=titleerror, contenterror=contenterror, posts=posts, error=error)
-
     def get(self):
         self.render("newpost.html")
 
